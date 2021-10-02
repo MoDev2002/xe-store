@@ -24,20 +24,20 @@
 * Bottom app bar with floating action button in the middle.
 * Full working logic using the provider package.
 
+## App Showcase :
 
+#### Main Screen :
 ![Main Screen](https://user-images.githubusercontent.com/91676840/135720613-db2770b8-8ac0-4cf0-b332-221ff281ae5e.jpg)
-##### Main Screen
+#### Drawer Screen :
 ![Drawer Screen](https://user-images.githubusercontent.com/91676840/135720624-22116c65-8d33-4fc0-8c7c-a7bc4b16e63b.jpg)
-##### Drawer Screen
-
+#### Favorites Screen :
 ![Favorites Screen](https://user-images.githubusercontent.com/91676840/135720650-fb8f769f-34b7-47e6-a102-b9f2e316aeb5.jpg)
-##### Favorites Screen
-
+#### Product Detail Screen :
+![Product Detail Screen](https://user-images.githubusercontent.com/91676840/135722079-2b8b0231-676c-4c9e-93a7-1b287b09dd1e.jpg)
+#### Cart Screen :
 ![Cart Screen](https://user-images.githubusercontent.com/91676840/135720673-61e4635e-d23a-4104-88ba-016f4408af8a.jpg)
-##### Cart Screen
-
+#### Orders Screen :
 ![Ordres Screen](https://user-images.githubusercontent.com/91676840/135720698-1e5cf5ec-9012-4492-bfc6-fe2d6974b492.jpg)
-##### Orders Screen
 
 
 

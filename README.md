@@ -30,16 +30,20 @@
 ![Main Screen](https://user-images.githubusercontent.com/91676840/135723890-a32213d0-e943-4dd3-9f88-883f5e4f70c9.png)
 
 #### Drawer Screen :
-![Drawer Screen](https://user-images.githubusercontent.com/91676840/135720624-22116c65-8d33-4fc0-8c7c-a7bc4b16e63b.jpg)
-#### Favorites Screen :
-![Favorites Screen](https://user-images.githubusercontent.com/91676840/135720650-fb8f769f-34b7-47e6-a102-b9f2e316aeb5.jpg)
-#### Product Detail Screen :
-![Product Detail Screen](https://user-images.githubusercontent.com/91676840/135722079-2b8b0231-676c-4c9e-93a7-1b287b09dd1e.jpg)
-#### Cart Screen :
-![Cart Screen](https://user-images.githubusercontent.com/91676840/135720673-61e4635e-d23a-4104-88ba-016f4408af8a.jpg)
-#### Orders Screen :
-![Ordres Screen](https://user-images.githubusercontent.com/91676840/135720698-1e5cf5ec-9012-4492-bfc6-fe2d6974b492.jpg)
+![xe-store-github 2](https://user-images.githubusercontent.com/91676840/135733240-16e388d7-7538-4c0a-ab05-fa5a38d335d5.png)
 
+#### Favorites Screen :
+![xe-store-github 3](https://user-images.githubusercontent.com/91676840/135733282-5b611f60-cc05-4728-8901-ca7a5d7799cd.png)
+
+#### Product Detail Screen :
+![xe-store-github 4](https://user-images.githubusercontent.com/91676840/135733336-c638b4db-3989-4bf3-ab3e-05f50a35af9f.png)
+
+
+#### Cart Screen :
+![xe-store-github 5](https://user-images.githubusercontent.com/91676840/135733352-7c6be60c-bfbb-499a-ac4b-9e92fae30a1f.png)
+
+#### Orders Screen :
+![xe-store-github 6](https://user-images.githubusercontent.com/91676840/135733366-c9029976-8297-4e15-b229-db42b9ed52a1.png)
 
 
 ###### Feel free to implement my code or imporve it, if you have any suggestions don't hesitate to say them. 

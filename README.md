@@ -29,5 +29,5 @@
 
 
 * Feel free to implement my code or imporve it, if you have any suggestions don't hesitate to say them. 
-* please support me by following my instagram page [@modev2002] (https://www.instagram.com/modev2002/).
+* please support me by following my instagram page [MoDev2002](https://www.instagram.com/modev2002/).
 * for any inquires contact me.

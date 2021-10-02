@@ -27,7 +27,8 @@
 ## App Showcase :
 
 #### Main Screen :
-![Main Screen](https://user-images.githubusercontent.com/91676840/135720613-db2770b8-8ac0-4cf0-b332-221ff281ae5e.jpg)
+![Main Screen](https://user-images.githubusercontent.com/91676840/135723890-a32213d0-e943-4dd3-9f88-883f5e4f70c9.png)
+
 #### Drawer Screen :
 ![Drawer Screen](https://user-images.githubusercontent.com/91676840/135720624-22116c65-8d33-4fc0-8c7c-a7bc4b16e63b.jpg)
 #### Favorites Screen :

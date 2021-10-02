@@ -5,7 +5,6 @@ import 'package:shopapp/screens/drawer_screen.dart';
 import './providers/orders.dart';
 import './screens/cart_screen.dart';
 import './providers/cart.dart';
-import './screens/tabs_screen.dart';
 import './screens/product_detail_screen.dart';
 import './providers/products.dart';
 

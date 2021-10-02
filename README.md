@@ -1,13 +1,18 @@
 # xe-store
  ui for shopping app made by flutter Sdk.
  
+ 
  ## Used Packages :
- *Provider
- *Intl
- *Flutter_Lints
+ * Provider
+ * Intl
+ * Flutter_Lints
+
+
  ## Used Fonts :
- *Gilroy
- *Amiko
+ * Gilroy
+ * Amiko
+
+
  ## Color Palette :
 * #F2F2F2 - Background Color
 * #2E5CB5 - Primary Color (main buttons and for drawer background)
@@ -18,6 +23,7 @@
 * Animated hidden drawer with gesture detector.
 * Bottom app bar with floating action button in the middle.
 * Full working logic using the provider package.
+
 
 Feel free to implement my code or imporve it, if you have any suggestions don't hesitate to say them. 
 please support me by following my instagram page @modev2002.

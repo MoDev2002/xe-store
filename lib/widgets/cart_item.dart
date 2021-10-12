@@ -36,7 +36,8 @@ class CartItem extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                   title: const Text('Are you sure'),
-                  content: const Text('You want to remove item from cart ?'),
+                  content:
+                      const Text('That you want to remove item from cart ?'),
                   actions: [
                     TextButton(
                         onPressed: () {

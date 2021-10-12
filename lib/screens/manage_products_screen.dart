@@ -1,37 +1,48 @@
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
+import 'package:shopapp/providers/products.dart';
+import 'package:shopapp/widgets/manage_product_item.dart';
+
 class ManageProductsScreen extends StatelessWidget {
   final VoidCallback openDrawer;
   const ManageProductsScreen(this.openDrawer, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final products = Provider.of<Products>(context);
     return Scaffold(
       appBar: AppBar(
-          elevation: 0,
-          centerTitle: true,
-          leading: IconButton(
-              onPressed: openDrawer,
+        elevation: 0,
+        centerTitle: true,
+        leading: IconButton(
+            onPressed: openDrawer,
+            icon: const Icon(
+              Icons.menu_rounded,
+              color: Colors.black,
+              size: 32,
+            )),
+        title: const Text(
+          'Manage Products',
+          style: TextStyle(color: Colors.black),
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {},
               icon: const Icon(
-                Icons.menu_rounded,
+                Icons.add_rounded,
+                size: 28,
                 color: Colors.black,
-                size: 32,
-              )),
-          title: RichText(
-              text: TextSpan(
-                  style: const TextStyle(
-                      fontFamily: 'Amiko',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 28),
-                  children: [
-                TextSpan(
-                    text: 'X',
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondaryVariant)),
-                TextSpan(
-                    text: 'E',
-                    style: TextStyle(color: Theme.of(context).primaryColor))
-              ]))),
+              ))
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: products.items.length,
+        itemBuilder: (context, index) => ManageProductItem(
+            title: products.items[index].title,
+            price: products.items[index].price,
+            imageUrl: products.items[index].imageUrl),
+      ),
     );
   }
 }

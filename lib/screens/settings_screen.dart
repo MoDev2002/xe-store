@@ -32,7 +32,7 @@ class SettingsScreen extends StatelessWidget {
                     text: 'E',
                     style: TextStyle(color: Theme.of(context).primaryColor))
               ]))),
-      body: Center(
+      body: const Center(
         child: Text('Settings Screen'),
       ),
     );

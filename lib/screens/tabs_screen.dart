@@ -12,14 +12,15 @@ import './product_overreview_screen.dart';
 // ignore: must_be_immutable
 class TabsScreen extends StatefulWidget {
   final VoidCallback openDrawer;
-  int selectedIndex = 0;
-  TabsScreen(this.openDrawer, this.selectedIndex, {Key? key}) : super(key: key);
+
+  TabsScreen(this.openDrawer, {Key? key}) : super(key: key);
 
   @override
   _TabsScreenState createState() => _TabsScreenState();
 }
 
 class _TabsScreenState extends State<TabsScreen> {
+  int selectedIndex = 0;
   final List<Widget> _screens = const [
     ProductOverreviewScreen(),
     FavoritesScreen(),
@@ -29,7 +30,7 @@ class _TabsScreenState extends State<TabsScreen> {
 
   void _selectScreen(int index) {
     setState(() {
-      widget.selectedIndex = index;
+      selectedIndex = index;
     });
   }
 
@@ -62,7 +63,7 @@ class _TabsScreenState extends State<TabsScreen> {
                     text: 'E',
                     style: TextStyle(color: Theme.of(context).primaryColor))
               ]))),
-      body: _screens[widget.selectedIndex],
+      body: _screens[selectedIndex],
       floatingActionButton: Consumer<Cart>(
         builder: (ctx, cart, ch) => cart.itemCount == 0
             ? ch as Widget
@@ -81,8 +82,8 @@ class _TabsScreenState extends State<TabsScreen> {
             )),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: TabBarMaterial(
-          index: widget.selectedIndex, onChangedTab: _selectScreen),
+      bottomNavigationBar:
+          TabBarMaterial(index: selectedIndex, onChangedTab: _selectScreen),
     );
   }
 }

@@ -74,7 +74,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
         child: AnimatedContainer(
             transform: Matrix4.translationValues(xOffset, yOffset, 0)
               ..scale(scaleFactor),
-            duration: const Duration(milliseconds: 200),
+            duration: const Duration(milliseconds: 250),
             child: AbsorbPointer(
                 absorbing: isDrawerOpen,
                 child: ClipRRect(
@@ -95,7 +95,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
       case DrawerItems.home:
       default:
         selectedIndex = 0;
-        return TabsScreen(openDrawer, 0);
+        return TabsScreen(openDrawer);
     }
   }
 

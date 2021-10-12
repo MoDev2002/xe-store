@@ -24,9 +24,34 @@ class CartItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<Cart>(context, listen: false);
     return Dismissible(
       onDismissed: (direction) {
-        Provider.of<Cart>(context, listen: false).removeItem(productId);
+        cart.removeItem(productId);
+      },
+      confirmDismiss: (direction) {
+        return showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  title: const Text('Are you sure'),
+                  content: const Text('You want to remove item from cart ?'),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(false);
+                        },
+                        child: const Text('No',
+                            style: TextStyle(color: Colors.black))),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(true);
+                        },
+                        child: Text('Yes',
+                            style: TextStyle(
+                                color:
+                                    Theme.of(context).colorScheme.secondary))),
+                  ],
+                ));
       },
       direction: DismissDirection.endToStart,
       key: ValueKey(id),
@@ -104,15 +129,9 @@ class CartItem extends StatelessWidget {
                         heroTag: null,
                         backgroundColor: Colors.white,
                         elevation: 1,
-                        onPressed: (quantity > 1)
-                            ? () {
-                                Provider.of<Cart>(context, listen: false)
-                                    .addOrRemoeItem(productId, false);
-                              }
-                            : () {
-                                Provider.of<Cart>(context, listen: false)
-                                    .removeItem(productId);
-                              },
+                        onPressed: () {
+                          cart.addOrRemoveItem(productId, false);
+                        },
                         child: const Icon(
                           Icons.remove_rounded,
                           size: 50,
@@ -137,8 +156,7 @@ class CartItem extends StatelessWidget {
                         elevation: 1,
                         backgroundColor: Theme.of(context).primaryColor,
                         onPressed: () {
-                          Provider.of<Cart>(context, listen: false)
-                              .addOrRemoeItem(productId, true);
+                          cart.addOrRemoveItem(productId, true);
                         },
                         child: const Icon(
                           Icons.add_rounded,

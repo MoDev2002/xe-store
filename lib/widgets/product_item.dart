@@ -112,6 +112,21 @@ class ProductItem extends StatelessWidget {
                     onPressed: () {
                       cart.addItem(product.id, product.title, product.imageUrl,
                           product.price);
+                      ScaffoldMessenger.of(context)
+                        ..removeCurrentSnackBar()
+                        ..showSnackBar(SnackBar(
+                          content: const Text('Item added to cart'),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(15))),
+                          action: SnackBarAction(
+                            label: 'undo',
+                            onPressed: () {
+                              cart.addOrRemoveItem(product.id, false);
+                            },
+                          ),
+                        ));
                     },
                     icon: const Icon(Icons.shopping_cart_rounded)),
                 const Spacer(),

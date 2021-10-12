@@ -105,7 +105,7 @@ class ProductDetailScreen extends StatelessWidget {
             color: Colors.white,
             child: Column(
               children: [
-               const SizedBox(
+                const SizedBox(
                   height: 75,
                 ),
                 Stack(
@@ -203,10 +203,12 @@ class ProductDetailScreen extends StatelessWidget {
                       child: Row(
                         children: [
                           Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: PriceText(price: loadedProduct.price ,fontSize: 28, color: Colors.black)
-                          ),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: PriceText(
+                                  price: loadedProduct.price,
+                                  fontSize: 28,
+                                  color: Colors.black)),
                           const Spacer(),
                           Padding(
                             padding:
@@ -218,7 +220,22 @@ class ProductDetailScreen extends StatelessWidget {
                                       loadedProduct.title,
                                       loadedProduct.imageUrl,
                                       loadedProduct.price);
-                                  Navigator.of(context).pop();
+                                  ScaffoldMessenger.of(context)
+                                    ..removeCurrentSnackBar()
+                                    ..showSnackBar(SnackBar(
+                                      content: const Text('Item added to cart'),
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(15),
+                                              topRight: Radius.circular(15))),
+                                      action: SnackBarAction(
+                                        label: 'undo',
+                                        onPressed: () {
+                                          cart.addOrRemoveItem(
+                                              loadedProduct.id, false);
+                                        },
+                                      ),
+                                    ));
                                 },
                                 style: ButtonStyle(
                                     backgroundColor:

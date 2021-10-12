@@ -33,6 +33,8 @@ class CartItem extends StatelessWidget {
         return showDialog(
             context: context,
             builder: (context) => AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
                   title: const Text('Are you sure'),
                   content: const Text('You want to remove item from cart ?'),
                   actions: [
@@ -40,16 +42,17 @@ class CartItem extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).pop(false);
                         },
-                        child: const Text('No',
-                            style: TextStyle(color: Colors.black))),
+                        child: Text('No',
+                            style: TextStyle(
+                                color:
+                                    Theme.of(context).colorScheme.secondary))),
                     TextButton(
                         onPressed: () {
                           Navigator.of(context).pop(true);
                         },
                         child: Text('Yes',
                             style: TextStyle(
-                                color:
-                                    Theme.of(context).colorScheme.secondary))),
+                                color: Theme.of(context).errorColor))),
                   ],
                 ));
       },

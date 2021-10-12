@@ -223,13 +223,19 @@ class ProductDetailScreen extends StatelessWidget {
                                   ScaffoldMessenger.of(context)
                                     ..removeCurrentSnackBar()
                                     ..showSnackBar(SnackBar(
+                                      backgroundColor: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                      duration: Duration(seconds: 1),
                                       content: const Text('Item added to cart'),
                                       shape: const RoundedRectangleBorder(
                                           borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(15),
                                               topRight: Radius.circular(15))),
                                       action: SnackBarAction(
-                                        label: 'undo',
+                                        textColor:
+                                            Theme.of(context).primaryColor,
+                                        label: 'UNDO',
                                         onPressed: () {
                                           cart.addOrRemoveItem(
                                               loadedProduct.id, false);

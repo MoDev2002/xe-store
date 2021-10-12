@@ -3,7 +3,6 @@ import 'package:shopapp/screens/manage_products_screen.dart';
 import 'package:shopapp/screens/settings_screen.dart';
 
 import '../models/drawer_item.dart';
-import './cart_screen.dart';
 import './tabs_screen.dart';
 import '../widgets/drawer_widget.dart';
 

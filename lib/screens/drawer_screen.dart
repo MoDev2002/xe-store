@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shopapp/screens/manage_products_screen.dart';
+import 'package:shopapp/screens/settings_screen.dart';
 
 import '../models/drawer_item.dart';
 import './cart_screen.dart';
@@ -82,32 +84,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
     );
   }
 
-  Widget _buildSecondPage() {
-    return AnimatedContainer(
-        transform: Matrix4.translationValues(xOffset - 30, yOffset + 20, 0)
-          ..scale(scaleFactor - 0.05),
-        duration: const Duration(milliseconds: 200),
-        child: AbsorbPointer(
-            absorbing: isDrawerOpen,
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(isDrawerOpen ? 35 : 0),
-                child: const Opacity(opacity: 0.7, child: CartScreen()))));
-  }
-
   Widget getDrawerPage() {
     switch (item) {
-      case DrawerItems.cart:
+      case DrawerItems.manageProducts:
         selectedIndex = 1;
-        return const CartScreen();
-      case DrawerItems.favourites:
-        selectedIndex = 2;
-        return TabsScreen(openDrawer, 1);
-      case DrawerItems.order:
-        selectedIndex = 3;
-        return TabsScreen(openDrawer, 2);
+        return ManageProductsScreen(openDrawer);
       case DrawerItems.settings:
-        selectedIndex = 4;
-        return TabsScreen(openDrawer, 0);
+        selectedIndex = 2;
+        return SettingsScreen(openDrawer);
       case DrawerItems.home:
       default:
         selectedIndex = 0;
@@ -121,7 +105,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
       backgroundColor: Theme.of(context).colorScheme.secondary,
       body: Stack(children: [
         _buildDrawer(),
-        _buildSecondPage(),
         _buildPage(),
       ]),
     );

@@ -12,9 +12,8 @@ class TabBarMaterial extends StatelessWidget {
     final isSelected = index == this.index;
     return IconTheme(
       data: IconThemeData(
-          color: isSelected
-              ? Theme.of(context).colorScheme.secondary
-              : Colors.grey),
+          color:
+              isSelected ? Theme.of(context).colorScheme.primary : Colors.grey),
       child: IconButton(
         onPressed: () => onChangedTab(index),
         icon: Icon(icon),

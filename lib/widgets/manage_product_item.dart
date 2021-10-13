@@ -58,7 +58,7 @@ class ManageProductItem extends StatelessWidget {
                 PriceText(
                     price: (price),
                     fontSize: 20,
-                    color: Theme.of(context).colorScheme.secondary)
+                    color: Theme.of(context).colorScheme.primary)
               ],
             ),
           ),
@@ -67,7 +67,7 @@ class ManageProductItem extends StatelessWidget {
               onPressed: () {},
               icon: Icon(
                 Icons.edit_rounded,
-                color: Theme.of(context).colorScheme.secondary,
+                color: Theme.of(context).colorScheme.primary,
               )),
           // SizedBox(width: 15),
           IconButton(

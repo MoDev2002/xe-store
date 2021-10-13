@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopapp/screens/drawer_screen.dart';
+import 'package:shopapp/screens/edit_product_screen.dart';
 
 import './providers/orders.dart';
 import './screens/cart_screen.dart';
@@ -33,15 +34,23 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: const Color.fromARGB(255, 245, 245, 245),
             fontFamily: 'Gilroy',
             colorScheme: const ColorScheme.light(
-              primary: Color.fromARGB(255, 245, 245, 245),
+              onSurface: Colors.black,
+              primary: Color.fromRGBO(43, 98, 195, 1),
               secondaryVariant: Color.fromRGBO(37, 60, 120, 1),
               secondary: Color.fromRGBO(43, 98, 195, 1),
             ),
-            primaryColor: const Color.fromRGBO(163, 219, 243, 1)),
+            primaryColor: const Color.fromRGBO(163, 219, 243, 1),
+            textTheme: Theme.of(context)
+                .textTheme
+                .apply(bodyColor: Colors.black, displayColor: Colors.black),
+            appBarTheme: AppBarTheme(
+                foregroundColor: Colors.black,
+                backgroundColor: const Color.fromARGB(255, 245, 245, 245))),
         routes: {
           '/': (ctx) => const DrawerScreen(),
           ProductDetailScreen.routeName: (ctx) => const ProductDetailScreen(),
-          CartScreen.routeName: (ctx) => const CartScreen()
+          CartScreen.routeName: (ctx) => const CartScreen(),
+          EditProductScreen.routeName: (ctx) => const EditProductScreen()
         },
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'package:shopapp/providers/products.dart';
+import 'package:shopapp/screens/edit_product_screen.dart';
 import 'package:shopapp/widgets/manage_product_item.dart';
 
 class ManageProductsScreen extends StatelessWidget {
@@ -28,7 +29,9 @@ class ManageProductsScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(EditProductScreen.routeName);
+              },
               icon: const Icon(
                 Icons.add_rounded,
                 size: 28,

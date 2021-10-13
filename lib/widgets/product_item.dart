@@ -105,7 +105,7 @@ class ProductItem extends StatelessWidget {
             PriceText(
                 price: product.price,
                 fontSize: 22,
-                color: Theme.of(context).colorScheme.secondary),
+                color: Theme.of(context).colorScheme.primary),
             Row(
               children: [
                 IconButton(
@@ -116,7 +116,7 @@ class ProductItem extends StatelessWidget {
                         ..removeCurrentSnackBar()
                         ..showSnackBar(SnackBar(
                           backgroundColor:
-                              Theme.of(context).colorScheme.secondary,
+                              Theme.of(context).colorScheme.primary,
                           duration: Duration(seconds: 1),
                           content: const Text('Item added to cart'),
                           shape: const RoundedRectangleBorder(

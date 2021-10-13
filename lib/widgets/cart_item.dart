@@ -45,8 +45,7 @@ class CartItem extends StatelessWidget {
                         },
                         child: Text('No',
                             style: TextStyle(
-                                color:
-                                    Theme.of(context).colorScheme.secondary))),
+                                color: Theme.of(context).colorScheme.primary))),
                     TextButton(
                         onPressed: () {
                           Navigator.of(context).pop(true);
@@ -116,7 +115,7 @@ class CartItem extends StatelessWidget {
                   PriceText(
                       price: (price * quantity),
                       fontSize: 20,
-                      color: Theme.of(context).colorScheme.secondary)
+                      color: Theme.of(context).colorScheme.primary)
                 ],
               ),
             ),

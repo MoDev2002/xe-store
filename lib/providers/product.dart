@@ -6,18 +6,25 @@ class Product with ChangeNotifier {
   final String descreption;
   final double price;
   final String imageUrl;
-  bool isFavorite;
   Product({
     required this.id,
     required this.title,
     required this.descreption,
     required this.price,
     required this.imageUrl,
-    this.isFavorite = false,
   });
-
-  void toggleFavorite() {
-    isFavorite = !isFavorite;
-    notifyListeners();
+  Product copyWith({
+    String? id,
+    String? title,
+    String? descreption,
+    double? price,
+    String? imageUrl,
+  }) {
+    return Product(
+        id: id ?? this.id,
+        title: title ?? this.title,
+        descreption: descreption ?? this.descreption,
+        price: price ?? this.price,
+        imageUrl: imageUrl ?? this.imageUrl);
   }
 }

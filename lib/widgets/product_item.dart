@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import './product_image.dart';
 import './price_text.dart';
 import '../providers/cart.dart';
 import '../providers/product.dart';
@@ -73,20 +74,8 @@ class ProductItem extends StatelessWidget {
                 ],
               ),
             ),
-            Stack(
-              children: [
-                Image.asset(
-                  'assets/images/product_background.png',
-                  height: 120,
-                ),
-                Image.network(
-                  product.imageUrl,
-                  fit: BoxFit.contain,
-                  height: 90,
-                ),
-              ],
-              alignment: Alignment.center,
-            ),
+            ProductImage(
+                imageUrl: product.imageUrl, bgHeight: 120, imgHeight: 90),
             const SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),

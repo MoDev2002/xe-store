@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/product_image.dart';
 import '../widgets/price_text.dart';
 import '../providers/cart.dart';
 import '../providers/products.dart';
@@ -108,20 +109,12 @@ class ProductDetailScreen extends StatelessWidget {
                 const SizedBox(
                   height: 75,
                 ),
-                Stack(
-                  children: [
-                    Image.asset(
-                      'assets/images/product_background.png',
-                      height: 400,
-                    ),
-                    Image.network(
-                      loadedProduct.imageUrl,
-                      fit: BoxFit.contain,
-                      height: 330,
-                    ),
-                  ],
-                  alignment: Alignment.center,
-                ),
+                ProductImage(
+                  imageUrl: loadedProduct.imageUrl,
+                  bgHeight: 400,
+                  imgHeight: 330,
+                  oval: false,
+                )
               ],
             ),
           ),

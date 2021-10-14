@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import './product_image.dart';
 import './price_text.dart';
 import '../providers/cart.dart';
 
@@ -78,20 +78,7 @@ class CartItem extends StatelessWidget {
         color: Colors.white,
         child: Row(
           children: [
-            Stack(
-              children: [
-                Image.asset(
-                  'assets/images/product_background.png',
-                  height: 100,
-                ),
-                Image.network(
-                  imageUrl,
-                  fit: BoxFit.contain,
-                  height: 70,
-                ),
-              ],
-              alignment: Alignment.center,
-            ),
+            ProductImage(imageUrl: imageUrl, bgHeight: 100, imgHeight: 70),
             const SizedBox(
               width: 10,
             ),

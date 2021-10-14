@@ -30,7 +30,8 @@ class ManageProductsScreen extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(EditProductScreen.routeName);
+                Navigator.of(context)
+                    .pushNamed(EditProductScreen.routeName, arguments: '');
               },
               icon: const Icon(
                 Icons.add_rounded,
@@ -42,6 +43,7 @@ class ManageProductsScreen extends StatelessWidget {
       body: ListView.builder(
         itemCount: products.items.length,
         itemBuilder: (context, index) => ManageProductItem(
+            id: products.items[index].id,
             title: products.items[index].title,
             price: products.items[index].price,
             imageUrl: products.items[index].imageUrl),

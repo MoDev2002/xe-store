@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopapp/providers/products.dart';
+import 'package:shopapp/screens/edit_product_screen.dart';
 import 'package:shopapp/widgets/price_text.dart';
+import 'package:shopapp/widgets/product_image.dart';
 
 class ManageProductItem extends StatelessWidget {
+  final String id;
   final String title;
   final String imageUrl;
   final double price;
   const ManageProductItem(
       {Key? key,
+      required this.id,
       required this.title,
       required this.price,
       required this.imageUrl})
@@ -21,20 +27,7 @@ class ManageProductItem extends StatelessWidget {
       color: Colors.white,
       child: Row(
         children: [
-          Stack(
-            children: [
-              Image.asset(
-                'assets/images/product_background.png',
-                height: 100,
-              ),
-              Image.network(
-                imageUrl,
-                fit: BoxFit.contain,
-                height: 70,
-              ),
-            ],
-            alignment: Alignment.center,
-          ),
+          ProductImage(imageUrl: imageUrl, bgHeight: 100, imgHeight: 70),
           const SizedBox(
             width: 10,
           ),
@@ -64,14 +57,47 @@ class ManageProductItem extends StatelessWidget {
           ),
           const Spacer(),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(EditProductScreen.routeName, arguments: id);
+              },
               icon: Icon(
                 Icons.edit_rounded,
                 color: Theme.of(context).colorScheme.primary,
               )),
           // SizedBox(width: 15),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          title: const Text('Are you sure'),
+                          content: const Text(
+                              'That you want to remove this product permanently?'),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text('No',
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary))),
+                            TextButton(
+                                onPressed: () {
+                                  Provider.of<Products>(context, listen: false)
+                                      .removeProduct(id);
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text('Yes',
+                                    style: TextStyle(
+                                        color: Theme.of(context).errorColor))),
+                          ],
+                        ));
+              },
               icon: Icon(
                 Icons.delete_forever_rounded,
                 color: Theme.of(context).errorColor,

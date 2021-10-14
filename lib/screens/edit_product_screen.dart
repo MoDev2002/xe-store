@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/products.dart';
+import '../widgets/product_image.dart';
 import '../providers/product.dart';
 
 class EditProductScreen extends StatefulWidget {
@@ -17,6 +20,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   // ignore: prefer_final_fields
   var _imageUrlInput = '';
   final _form = GlobalKey<FormState>();
+  bool hasInitVal = true;
   var _editedProduct =
       Product(id: '', title: '', descreption: '', price: 0, imageUrl: '');
 
@@ -28,12 +32,33 @@ class _EditProductScreenState extends State<EditProductScreen> {
     _imageUrlController.dispose();
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (hasInitVal) {
+      final productId = ModalRoute.of(context)!.settings.arguments as String;
+      if (productId != '') {
+        _editedProduct =
+            Provider.of<Products>(context, listen: false).findById(productId);
+      }
+      _imageUrlController.text = _editedProduct.imageUrl;
+    }
+    hasInitVal = false;
+  }
+
   void _saveform() {
+    var isValid = _form.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
     _form.currentState!.save();
-    print(_editedProduct.title);
-    print(_editedProduct.price);
-    print(_editedProduct.descreption);
-    print(_editedProduct.imageUrl);
+    if (_editedProduct.id != '') {
+      Provider.of<Products>(context, listen: false)
+          .updateProduct(_editedProduct.id, _editedProduct);
+    } else {
+      Provider.of<Products>(context, listen: false).addProduct(_editedProduct);
+    }
+    Navigator.of(context).pop();
   }
 
   @override
@@ -56,7 +81,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  SizedBox(height: 5),
                   TextFormField(
+                    initialValue: _editedProduct.title,
                     decoration: const InputDecoration(
                       labelText: 'Product Title',
                       border: OutlineInputBorder(),
@@ -68,9 +95,18 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     onSaved: (v) {
                       _editedProduct = _editedProduct.copyWith(title: v);
                     },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Enter Product Title.';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 20),
                   TextFormField(
+                    initialValue: _editedProduct.price == 0
+                        ? null
+                        : _editedProduct.price.toString(),
                     decoration: const InputDecoration(
                       labelText: 'Product Price',
                       suffixIcon: Icon(Icons.attach_money_rounded),
@@ -87,46 +123,67 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       _editedProduct = _editedProduct.copyWith(
                           price: double.parse(v as String));
                     },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Enter Product Price.';
+                      }
+                      if (double.tryParse(value) == null) {
+                        return 'Enter a valid number.';
+                      }
+                      if (double.parse(value) <= 0) {
+                        return 'Enter a price above zero.';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 20),
                   TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Product Description',
-                      border: OutlineInputBorder(),
-                    ),
-                    maxLines: 4,
-                    keyboardType: TextInputType.multiline,
-                    focusNode: _descriptionFocusNode,
-                    onSaved: (v) {
-                      _editedProduct = _editedProduct.copyWith(descreption: v);
-                    },
-                  ),
+                      initialValue: _editedProduct.descreption,
+                      decoration: const InputDecoration(
+                        labelText: 'Product Description',
+                        border: OutlineInputBorder(),
+                      ),
+                      maxLines: 4,
+                      keyboardType: TextInputType.multiline,
+                      focusNode: _descriptionFocusNode,
+                      onSaved: (v) {
+                        _editedProduct =
+                            _editedProduct.copyWith(descreption: v);
+                      },
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Enter Product Description.';
+                        }
+                        if (value.length < 10) {
+                          return 'The description length should be at least 10 characters long.';
+                        }
+                        return null;
+                      }),
                   const SizedBox(height: 20),
                   Row(
                     children: [
                       Container(
-                        width: 150,
-                        height: 150,
-                        margin: const EdgeInsets.all(8),
-                        child: _imageUrlController.text.isEmpty
-                            ? const Center(
-                                child: Text('Add URL'),
-                              )
-                            : Stack(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/product_background.png',
-                                    height: 120,
-                                  ),
-                                  Image.network(
-                                    _imageUrlController.text,
-                                    fit: BoxFit.contain,
-                                    height: 90,
-                                  ),
-                                ],
-                                alignment: Alignment.center,
-                              ),
-                      ),
+                          width: 150,
+                          height: 150,
+                          margin: const EdgeInsets.all(8),
+                          child: (_imageUrlController.text.isEmpty ||
+                                  (!_imageUrlController.text
+                                          .startsWith('http://') &&
+                                      !_imageUrlController.text
+                                          .startsWith('https://')) ||
+                                  (!_imageUrlController.text.contains('.png') &&
+                                      !_imageUrlController.text
+                                          .contains('.jpg') &&
+                                      !_imageUrlController.text
+                                          .contains('.jpeg')))
+                              ? const Center(
+                                  child: Text('Add URL'),
+                                )
+                              : ProductImage(
+                                  imageUrl: _imageUrlController.text,
+                                  bgHeight: 120,
+                                  imgHeight: 90,
+                                )),
                       Expanded(
                           child: TextFormField(
                         decoration: const InputDecoration(
@@ -138,7 +195,16 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         controller: _imageUrlController,
                         onChanged: (value) {
                           setState(() {
-                            value = _imageUrlInput;
+                            if (value.isEmpty ||
+                                (!value.startsWith('http://') &&
+                                    !value.startsWith('https://')) ||
+                                (!value.contains('.png') &&
+                                    !value.contains('.jpg') &&
+                                    !value.contains('.jpeg'))) {
+                              return;
+                            } else {
+                              value = _imageUrlInput;
+                            }
                           });
                         },
                         onEditingComplete: () {
@@ -149,6 +215,21 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         },
                         onFieldSubmitted: (v) {
                           _saveform();
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter Image URL.';
+                          }
+                          if (!value.startsWith('http://') &&
+                              !value.startsWith('https://')) {
+                            return 'Enter a valid URL.';
+                          }
+                          if (!value.contains('.png') &&
+                              !value.contains('.jpg') &&
+                              !value.contains('.jpeg')) {
+                            return 'Enter a valid image URL.';
+                          }
+                          return null;
                         },
                       ))
                     ],

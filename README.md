@@ -30,7 +30,7 @@
 ![Main Screen](https://user-images.githubusercontent.com/91676840/135723890-a32213d0-e943-4dd3-9f88-883f5e4f70c9.png)
 
 #### Drawer Screen :
-![xe-store-github 2](https://user-images.githubusercontent.com/91676840/135733240-16e388d7-7538-4c0a-ab05-fa5a38d335d5.png)
+![xe-store-github 2](https://user-images.githubusercontent.com/91676840/137586798-94d9d860-33fc-4a44-8373-7b251b9ea2da.png)
 
 #### Favorites Screen :
 ![xe-store-github 3](https://user-images.githubusercontent.com/91676840/135733282-5b611f60-cc05-4728-8901-ca7a5d7799cd.png)
@@ -45,6 +45,12 @@
 #### Orders Screen :
 ![xe-store-github 6](https://user-images.githubusercontent.com/91676840/135733366-c9029976-8297-4e15-b229-db42b9ed52a1.png)
 
+#### Manage Products Screen :
+![xe-store-github 7](https://user-images.githubusercontent.com/91676840/137586860-7d006c39-1d43-436d-8669-657ea56cea5b.png)
+
+#### Add / Edit Products Screen :
+
+![xe-store-github 8](https://user-images.githubusercontent.com/91676840/137586914-811cf202-d799-4831-8b8c-a2535db61a1b.png)
 
 ###### Feel free to implement my code or imporve it, if you have any suggestions don't hesitate to say them. 
 ###### please support me by following my instagram page [MoDev2002](https://www.instagram.com/modev2002/).

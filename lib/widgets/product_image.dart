@@ -26,21 +26,34 @@ class ProductImage extends StatelessWidget {
                 imageUrl,
                 fit: BoxFit.contain,
                 height: imgHeight,
+                width: imgHeight,
               ),
             ],
             alignment: Alignment.center,
           )
         : oval
-            ? ClipOval(
-                child: Image.network(
-                  imageUrl,
-                  fit: BoxFit.contain,
-                  height: bgHeight,
+            ? Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SizedBox(
+                      height: bgHeight,
+                    ),
+                    ClipOval(
+                      child: Image.network(
+                        imageUrl,
+                        fit: BoxFit.cover,
+                        height: imgHeight,
+                        width: imgHeight,
+                      ),
+                    ),
+                  ],
                 ),
               )
             : Image.network(
                 imageUrl,
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
                 height: bgHeight,
               );
   }

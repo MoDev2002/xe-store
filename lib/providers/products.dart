@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import 'product.dart';
 
@@ -63,9 +66,25 @@ class Products with ChangeNotifier {
     return _items.firstWhere((product) => product.id == id);
   }
 
-  void addProduct(Product product) {
-    _items.insert(0, product.copyWith(id: DateTime.now().toString()));
-    notifyListeners();
+  Future<void> addProduct(Product product) {
+    final url = Uri.parse(
+        'https://xe-store-default-rtdb.europe-west1.firebasedatabase.app/products.json');
+    return http
+        .post(url,
+            body: json.encode({
+              'title': product.title,
+              'description': product.descreption,
+              'price': product.price,
+              'imageUrl': product.imageUrl,
+            }))
+        .then((response) {
+      _items.insert(
+          0,
+          product.copyWith(
+            id: json.decode(response.body)['name'],
+          ));
+      notifyListeners();
+    });
   }
 
   void updateProduct(String id, Product product) {

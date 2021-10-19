@@ -23,7 +23,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
   bool hasInitVal = true;
   var _editedProduct =
       Product(id: '', title: '', descreption: '', price: 0, imageUrl: '');
-  var _isLoading = false;
 
   @override
   void dispose() {

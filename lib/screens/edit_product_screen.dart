@@ -48,13 +48,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   void _saveform() {
-    setState(() {
-      _isLoading = true;
-    });
     var isValid = _form.currentState!.validate();
     if (!isValid) {
       return;
     }
+    setState(() {
+      _isLoading = true;
+    });
     _form.currentState!.save();
     if (_editedProduct.id != '') {
       Provider.of<Products>(context, listen: false)
@@ -66,7 +66,24 @@ class _EditProductScreenState extends State<EditProductScreen> {
     } else {
       Provider.of<Products>(context, listen: false)
           .addProduct(_editedProduct)
-          .then((_) {
+          .catchError((error) {
+        // ignore: prefer_void_to_null
+        return showDialog<Null>(
+            context: context,
+            builder: (context) => AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  title: const Text('An error occurred'),
+                  content: const Text('Something went wrong'),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('OK'))
+                  ],
+                ));
+      }).then((_) {
         setState(() {
           _isLoading = false;
         });

@@ -9,6 +9,10 @@ class ManageProductsScreen extends StatelessWidget {
   final VoidCallback openDrawer;
   const ManageProductsScreen(this.openDrawer, {Key? key}) : super(key: key);
 
+  Future<void> refresh(BuildContext context) async {
+    await Provider.of<Products>(context, listen: false).fetchAndSetProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     final products = Provider.of<Products>(context);
@@ -40,13 +44,16 @@ class ManageProductsScreen extends StatelessWidget {
               ))
         ],
       ),
-      body: ListView.builder(
-        itemCount: products.items.length,
-        itemBuilder: (context, index) => ManageProductItem(
-            id: products.items[index].id,
-            title: products.items[index].title,
-            price: products.items[index].price,
-            imageUrl: products.items[index].imageUrl),
+      body: RefreshIndicator(
+        onRefresh: () => refresh(context),
+        child: ListView.builder(
+          itemCount: products.items.length,
+          itemBuilder: (context, index) => ManageProductItem(
+              id: products.items[index].id,
+              title: products.items[index].title,
+              price: products.items[index].price,
+              imageUrl: products.items[index].imageUrl),
+        ),
       ),
     );
   }

@@ -47,7 +47,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     hasInitVal = false;
   }
 
-  void _saveform() {
+  Future<void> _saveform() async {
     var isValid = _form.currentState!.validate();
     if (!isValid) {
       return;
@@ -57,18 +57,19 @@ class _EditProductScreenState extends State<EditProductScreen> {
     });
     _form.currentState!.save();
     if (_editedProduct.id != '') {
-      Provider.of<Products>(context, listen: false)
+      await Provider.of<Products>(context, listen: false)
           .updateProduct(_editedProduct.id, _editedProduct);
       setState(() {
         _isLoading = false;
       });
       Navigator.of(context).pop();
     } else {
-      Provider.of<Products>(context, listen: false)
-          .addProduct(_editedProduct)
-          .catchError((error) {
+      try {
+        await Provider.of<Products>(context, listen: false)
+            .addProduct(_editedProduct);
+      } catch (error) {
         // ignore: prefer_void_to_null
-        return showDialog<Null>(
+        await showDialog<Null>(
             context: context,
             builder: (context) => AlertDialog(
                   shape: RoundedRectangleBorder(
@@ -83,12 +84,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         child: const Text('OK'))
                   ],
                 ));
-      }).then((_) {
+      } finally {
         setState(() {
           _isLoading = false;
         });
         Navigator.of(context).pop();
-      });
+      }
     }
   }
 

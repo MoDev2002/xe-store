@@ -1,10 +1,36 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopapp/providers/products.dart';
 
 import '../widgets/products_grid.dart';
 
-class ProductOverreviewScreen extends StatelessWidget {
+class ProductOverreviewScreen extends StatefulWidget {
   const ProductOverreviewScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ProductOverreviewScreen> createState() =>
+      _ProductOverreviewScreenState();
+}
+
+class _ProductOverreviewScreenState extends State<ProductOverreviewScreen> {
+  bool isInit = true;
+  var isLoading = false;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (isInit) {
+      setState(() {
+        isLoading = true;
+      });
+      Provider.of<Products>(context).fetchAndSetProducts().then((value) {
+        setState(() {
+          isLoading = false;
+        });
+      });
+    }
+    isInit = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +45,14 @@ class ProductOverreviewScreen extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
           ),
         ),
-        Expanded(child: ProductsGrid(showFavorite)),
+        Expanded(
+            child: isLoading
+                ? Center(
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  )
+                : ProductsGrid(showFavorite)),
       ],
     );
   }

@@ -27,6 +27,10 @@ class ProductImage extends StatelessWidget {
                 fit: BoxFit.contain,
                 height: imgHeight,
                 width: imgHeight,
+                errorBuilder: (BuildContext context, Object exception,
+                    StackTrace? stackTrace) {
+                  return const Text('An error occurred');
+                },
               ),
             ],
             alignment: Alignment.center,
@@ -46,6 +50,10 @@ class ProductImage extends StatelessWidget {
                         fit: BoxFit.cover,
                         height: imgHeight,
                         width: imgHeight,
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          return const Text('An error occurred');
+                        },
                       ),
                     ),
                   ],
@@ -55,6 +63,10 @@ class ProductImage extends StatelessWidget {
                 imageUrl,
                 fit: BoxFit.cover,
                 height: bgHeight,
+                errorBuilder: (BuildContext context, Object exception,
+                    StackTrace? stackTrace) {
+                  return const Text('An error occurred');
+                },
               );
   }
 }

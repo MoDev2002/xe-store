@@ -20,6 +20,7 @@ class ManageProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       elevation: 0,
@@ -87,10 +88,25 @@ class ManageProductItem extends StatelessWidget {
                                             .colorScheme
                                             .primary))),
                             TextButton(
-                                onPressed: () {
-                                  Provider.of<Products>(context, listen: false)
-                                      .removeProduct(id);
-                                  Navigator.of(context).pop();
+                                onPressed: () async {
+                                  try {
+                                    await Provider.of<Products>(context,
+                                            listen: false)
+                                        .removeProduct(id);
+                                  } catch (error) {
+                                    scaffold.showSnackBar(SnackBar(
+                                      backgroundColor:
+                                          Theme.of(context).colorScheme.primary,
+                                      duration: const Duration(seconds: 1),
+                                      content: const Text('Deleting Failed!'),
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(15),
+                                              topRight: Radius.circular(15))),
+                                    ));
+                                  } finally {
+                                    Navigator.of(context).pop();
+                                  }
                                 },
                                 child: Text('Yes',
                                     style: TextStyle(

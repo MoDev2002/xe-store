@@ -106,7 +106,7 @@ class ProductItem extends StatelessWidget {
                         ..showSnackBar(SnackBar(
                           backgroundColor:
                               Theme.of(context).colorScheme.primary,
-                          duration: Duration(seconds: 1),
+                          duration: const Duration(seconds: 1),
                           content: const Text('Item added to cart'),
                           shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(

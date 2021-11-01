@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/http_exception.dart';
 import 'product.dart';
 
 class Products with ChangeNotifier {
@@ -116,7 +117,8 @@ class Products with ChangeNotifier {
           'price': product.price,
           'imageUrl': product.imageUrl,
         }));
-
+    final prodIndex = _items.indexWhere((prod) => prod.id == id);
+    _items[prodIndex] = product;
     final favIndex = favorites.indexWhere((fav) => fav.id == id);
     if (favIndex >= 0) {
       favorites[favIndex] = product;
@@ -124,9 +126,25 @@ class Products with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeProduct(String id) {
-    _items.removeWhere((prod) => prod.id == id);
-    favorites.removeWhere((prod) => prod.id == id);
+  Future<void> removeProduct(String id) async {
+    final url = Uri.parse(
+        'https://xe-store-default-rtdb.europe-west1.firebasedatabase.app/products/$id.json');
+    final existingProductIndex = _items.indexWhere((prod) => prod.id == id);
+    final existingFavoriteIndex = favorites.indexWhere((prod) => prod.id == id);
+    final existingProduct = _items[existingProductIndex];
+    _items.removeAt(existingProductIndex);
+    favorites.removeAt(existingFavoriteIndex);
+    final response = await http.delete(url);
+    if (response.statusCode >= 400) {
+      _items.insert(existingProductIndex, existingProduct);
+      if (existingFavoriteIndex == -1) {
+        return;
+      } else {
+        favorites.insert(existingFavoriteIndex, existingProduct);
+      }
+      throw HttpException('Deleting Failed!');
+    }
+
     notifyListeners();
   }
 

@@ -4,8 +4,28 @@ import 'package:provider/provider.dart';
 import '../providers/orders.dart' show Orders;
 import '../widgets/order_item.dart';
 
-class OrdersScreen extends StatelessWidget {
+class OrdersScreen extends StatefulWidget {
   const OrdersScreen({Key? key}) : super(key: key);
+
+  @override
+  State<OrdersScreen> createState() => _OrdersScreenState();
+}
+
+class _OrdersScreenState extends State<OrdersScreen> {
+  bool isInIt = true;
+  bool isLoading = false;
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      isLoading = true;
+    });
+    Provider.of<Orders>(context, listen: false)
+        .fetchOrders()
+        .then((value) => setState(() {
+              isLoading = false;
+            }));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,20 +41,26 @@ class OrdersScreen extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: orderData.orders.isEmpty
-              ? const Center(
-                  child: Text(
-                    'No Orders yet!, Start Placing Orders.',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      fontSize: 18,
-                    ),
+          child: isLoading
+              ? Center(
+                  child: CircularProgressIndicator(
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 )
-              : ListView.builder(
-                  itemCount: orderData.orders.length,
-                  itemBuilder: (ctx, i) => OrderItem(orderData.orders[i]),
-                ),
+              : orderData.orders.isEmpty
+                  ? const Center(
+                      child: Text(
+                        'No Orders yet!, Start Placing Orders.',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                          fontSize: 18,
+                        ),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: orderData.orders.length,
+                      itemBuilder: (ctx, i) => OrderItem(orderData.orders[i]),
+                    ),
         )
       ],
     );

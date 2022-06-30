@@ -70,7 +70,11 @@ class Products with ChangeNotifier {
   Future<void> fetchAndSetProducts() async {
     final url = Uri.parse(
         'https://xe-store-default-rtdb.europe-west1.firebasedatabase.app/products.json');
+
     final response = await http.get(url);
+    if (json.decode(response.body) == null) {
+      return;
+    }
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
     final List<Product> loadedProducts = [];
     extractedData.forEach((prodId, prodData) {

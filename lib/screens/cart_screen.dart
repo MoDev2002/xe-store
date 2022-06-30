@@ -104,48 +104,7 @@ class CartScreen extends StatelessWidget {
                         const Spacer(),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: ElevatedButton(
-                              onPressed: () {
-                                Provider.of<Orders>(context, listen: false)
-                                    .addOrder(cart.items.values.toList(),
-                                        cart.totalAmount);
-                                cart.clearCart();
-                              },
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Theme.of(context)
-                                              .colorScheme
-                                              .secondaryVariant),
-                                  elevation:
-                                      MaterialStateProperty.all<double>(7),
-                                  shape:
-                                      MaterialStateProperty.all<OutlinedBorder>(
-                                          RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30))),
-                                  padding:
-                                      MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                          const EdgeInsets.symmetric(
-                                              vertical: 12, horizontal: 10))),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.check_circle_outline_rounded,
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    'Check Out',
-                                    style: TextStyle(
-                                      color: Theme.of(context).primaryColor,
-                                      fontSize: 16,
-                                    ),
-                                  )
-                                ],
-                              )),
+                          child: OrderButton(cart: cart),
                         )
                       ],
                     ),
@@ -157,5 +116,70 @@ class CartScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class OrderButton extends StatefulWidget {
+  const OrderButton({
+    Key? key,
+    required this.cart,
+  }) : super(key: key);
+
+  final Cart cart;
+
+  @override
+  State<OrderButton> createState() => _OrderButtonState();
+}
+
+class _OrderButtonState extends State<OrderButton> {
+  bool _isLoading = false;
+  @override
+  Widget build(BuildContext context) {
+    return _isLoading
+        ? CircularProgressIndicator(
+            color: Theme.of(context).colorScheme.secondaryVariant,
+          )
+        : ElevatedButton(
+            onPressed: (widget.cart.totalAmount <= 0 || _isLoading)
+                ? null
+                : () async {
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    await Provider.of<Orders>(context, listen: false).addOrder(
+                        widget.cart.items.values.toList(),
+                        widget.cart.totalAmount);
+                    widget.cart.clearCart();
+                    setState(() {
+                      _isLoading = false;
+                    });
+                  },
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Theme.of(context).colorScheme.secondaryVariant),
+                elevation: MaterialStateProperty.all<double>(7),
+                shape: MaterialStateProperty.all<OutlinedBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30))),
+                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 10))),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.check_circle_outline_rounded,
+                  color: Theme.of(context).primaryColor,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  'Check Out',
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontSize: 16,
+                  ),
+                )
+              ],
+            ));
   }
 }
